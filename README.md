@@ -1,6 +1,6 @@
 <div align="center">
 
-# <img src="./public/logo.png" alt="logo" width="40"/> **StackOverflowReplica**
+# <img src="./public/logo.png" alt="logo" width="70"/> **StackOverflowReplica**
 
 ## Miniature Backend Replica of StackOverflow.
 ### Build using Express(Node) and MongoDB. Tested using Postman.
