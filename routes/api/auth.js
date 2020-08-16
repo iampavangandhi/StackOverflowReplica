@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jsonwt = require("jsonwebtoken");
 const passport = require("passport");
-const key = require("../../setup/myurl");
+const key = require("../../config/myurl");
 
 //Import Schema
 const Person = require("../../models/Person");
@@ -20,7 +20,7 @@ router.get("/", (req, res) => res.json({ auth: "Auth is success" }));
 //@access   PUBLIC
 router.post("/register", (req, res) => {
   Person.findOne({ email: req.body.email })
-    .then(person => {
+    .then((person) => {
       if (person) {
         return res
           .status(400)
@@ -29,7 +29,7 @@ router.post("/register", (req, res) => {
         const newPerson = new Person({
           name: req.body.name,
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
         });
         //Encrypt password using bcrypt
         bcrypt.genSalt(10, (err, salt) => {
@@ -38,13 +38,13 @@ router.post("/register", (req, res) => {
             newPerson.password = hash;
             newPerson
               .save()
-              .then(person => res.json(person))
-              .catch(err => console.log(err));
+              .then((person) => res.json(person))
+              .catch((err) => console.log(err));
           });
         });
       }
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 //@type     POST
@@ -56,15 +56,15 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   Person.findOne({ email })
-    .then(person => {
+    .then((person) => {
       if (!person) {
         return res.status(404).json({
-          emailerror: "User not found"
+          emailerror: "User not found",
         });
       }
       bcrypt
         .compare(password, person.password)
-        .then(isCorrect => {
+        .then((isCorrect) => {
           if (isCorrect) {
             //res.json({ success: "User Login Successfully" });
 
@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
             const payload = {
               id: person.id,
               name: person.name,
-              email: person.email
+              email: person.email,
             };
             jsonwt.sign(
               payload,
@@ -83,18 +83,18 @@ router.post("/login", (req, res) => {
                 res
                   .json({
                     sucess: true,
-                    token: "Bearer " + token
+                    token: "Bearer " + token,
                   })
-                  .catch(err => console.log(err));
+                  .catch((err) => console.log(err));
               }
             );
           } else {
             res.status(400).json({ passworderror: "Password is Wrong" });
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 //@type     GET
@@ -110,7 +110,7 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
-      profilepic: req.user.profilepic
+      profilepic: req.user.profilepic,
     });
   }
 );

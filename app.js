@@ -1,3 +1,5 @@
+// StackOverflow Backend Replica
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
@@ -18,19 +20,19 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 //MongoDB configuration
-const db = require("./setup/myurl").mongoURL;
+const db = require("./config/myurl").mongoURL;
 
 //Connect to DB
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Database connected sucessfully..."))
-  .catch(err => console.log(error));
+  .catch((err) => console.log(error));
 
 //Passport Middleware
 app.use(passport.initialize());
 
 //Config for JWT Strategy
-require("./strategies/jsonwtStrategy")(passport);
+require("./middleware/jsonwtStrategy")(passport);
 
 //Testing route
 app.get("/", (req, res) => {

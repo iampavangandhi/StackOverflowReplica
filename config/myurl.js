@@ -1,4 +1,4 @@
 module.exports = {
   mongoURL: dbPassword,
-  secret: "mystrongsecret"
+  secret: "mystrongsecret",
 };
