@@ -3,7 +3,7 @@
 # <img src="./public/logo.png" alt="logo" width="60"/> **StackOverflowReplica**
 
 ## Miniature Backend Replica of StackOverflow.
-### Build using Express(Node) and MongoDB. Tested using Postman.
+### Built using Express(Node) and MongoDB. Tested using Postman.
 
 </div>
 
